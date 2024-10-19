@@ -34,8 +34,8 @@ public class LoginController {
         return response;
     }
 
-    @PostMapping("/api/send-email-verification")
-    @Operation(summary = "Send Email Verification", description = "Sends a verification code to the provided email")
+    @PostMapping("/api/email-code-verify")
+    @Operation(summary = "Send Email Verification", description = "이메일 코드 인증(userEmail, verifyNumber)")
     public StatusResponse sendVerificationEmail(@RequestBody EmailRequest emailRequest) {
         try {
             // 이메일 인증 코드 전송
@@ -47,8 +47,8 @@ public class LoginController {
             return new StatusResponse("1001");
         }
     }
-    @PostMapping("/api/verify-email-code")
-    @Operation(summary = "Verify Email Code", description = "Verifies the code sent to the provided email")
+    @PostMapping("/api/email-code-send")
+    @Operation(summary = "Verify Email Code", description = "이메일 코드 전송(userEmail)")
     public StatusResponse verifyEmailCode(@RequestBody EmailRequest emailRequest) {
         try {
             // 이메일과 인증번호를 검증
