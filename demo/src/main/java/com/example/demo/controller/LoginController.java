@@ -31,9 +31,6 @@ public class LoginController {
         // 로그인 처리
         LoginResponse response = loginService.login(request.getUserEmail(), request.getUserPassword());
 
-        // 이메일 인증 코드 전송
-        emailService.sendVerificationCode(request.getUserEmail());
-
         return response;
     }
 
@@ -50,6 +47,25 @@ public class LoginController {
             return new StatusResponse("1001");
         }
     }
+    @PostMapping("/api/verify-email-code")
+    @Operation(summary = "Verify Email Code", description = "Verifies the code sent to the provided email")
+    public StatusResponse verifyEmailCode(@RequestBody EmailRequest emailRequest) {
+        try {
+            // 이메일과 인증번호를 검증
+            boolean isVerified = emailService.verifyCode(emailRequest.getUserEmail(), emailRequest.getVerifyNumber());
+            if (isVerified) {
+                // 성공 시 200 반환
+                return new StatusResponse("200");
+            } else {
+                // 인증 실패 시 1002 반환
+                return new StatusResponse("1002");
+            }
+        } catch (Exception e) {
+            // 예외 발생 시 1002 반환
+            return new StatusResponse("1002");
+        }
+    }
+
     /*@PostMapping("/api/signup")
     @Operation(summary = "회원가입", description = "추후 구현 예정")
     public StatusResponse signup() {

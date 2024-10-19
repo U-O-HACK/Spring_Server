@@ -22,10 +22,5 @@ public class ClassController {
     public LoginResponse login(@RequestBody LoginRequest request) {
         return loginService.login(request.getUserEmail(),request.getUserPassword());
     }
-    /*@PostMapping("/api/signup")
-    @Operation(summary = "회원가입", description = "추후 구현 예정")
-    public StatusResponse signup() {
-        // 구현 예정
-        return new StatusResponse("Signup feature is not implemented yet");
-    }*/
+
 }
