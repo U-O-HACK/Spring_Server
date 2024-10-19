@@ -30,9 +30,6 @@ jobs:
     - name: Build with Gradle
       run: cd demo && ./gradlew clean build
 
-    - name: Rename JAR file
-      run: mv ./demo/build/libs/*.jar ./demo/build/libs/uohack.jar
-
     - name: Setup SSH
       uses: webfactory/ssh-agent@v0.5.3
       with:
