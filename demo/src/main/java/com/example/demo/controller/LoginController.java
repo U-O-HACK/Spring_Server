@@ -4,10 +4,10 @@ import com.example.demo.DTO.ToClient.LoginResponse;
 import com.example.demo.DTO.ToClient.StatusResponse;
 import com.example.demo.DTO.ToServer.EmailRequest;
 import com.example.demo.DTO.ToServer.LoginRequest;
-
-
+import com.example.demo.DTO.ToServer.SignUpRequest;
 import com.example.demo.service.EmailService;
 import com.example.demo.service.LoginService;
+import com.example.demo.service.SignUpService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,51 +25,30 @@ public class LoginController {
     @Autowired
     private EmailService emailService;
 
-    @PostMapping("/api/login")
-    @Operation(summary = "로그인", description = "user_email, user_pw")
-    public LoginResponse login(@RequestBody LoginRequest request) {
-        // 로그인 처리
-        LoginResponse response = loginService.login(request.getUserEmail(), request.getUserPassword());
+    @Autowired
+    private SignUpService signUpService;
 
-        return response;
+    @PostMapping("/api/login")
+    @Operation(summary = "Login", description = "로그인(user_email, user_pw)")
+    public LoginResponse login(@RequestBody LoginRequest request) {
+        return loginService.login(request.getUserEmail(), request.getUserPassword());
+    }
+
+    @PostMapping("/api/email-code-send")
+    @Operation(summary = "Send Email Verification", description = "이메일 인증 코드 전송 (userEmail)")
+    public StatusResponse sendVerificationEmail(@RequestBody EmailRequest emailRequest) {
+        return emailService.sendVerificationCode(emailRequest.getUserEmail());
     }
 
     @PostMapping("/api/email-code-verify")
-    @Operation(summary = "Send Email Verification", description = "이메일 코드 인증(userEmail, verifyNumber)")
-    public StatusResponse sendVerificationEmail(@RequestBody EmailRequest emailRequest) {
-        try {
-            // 이메일 인증 코드 전송
-            emailService.sendVerificationCode(emailRequest.getUserEmail());
-            // 성공 시 200 반환
-            return new StatusResponse("200");
-        } catch (Exception e) {
-            // 실패 시 1001 반환
-            return new StatusResponse("1001");
-        }
-    }
-    @PostMapping("/api/email-code-send")
-    @Operation(summary = "Verify Email Code", description = "이메일 코드 전송(userEmail)")
+    @Operation(summary = "Verify Email Code", description = "이메일 인증 코드 확인(userEmail, verifyNumber)")
     public StatusResponse verifyEmailCode(@RequestBody EmailRequest emailRequest) {
-        try {
-            // 이메일과 인증번호를 검증
-            boolean isVerified = emailService.verifyCode(emailRequest.getUserEmail(), emailRequest.getVerifyNumber());
-            if (isVerified) {
-                // 성공 시 200 반환
-                return new StatusResponse("200");
-            } else {
-                // 인증 실패 시 1002 반환
-                return new StatusResponse("1002");
-            }
-        } catch (Exception e) {
-            // 예외 발생 시 1002 반환
-            return new StatusResponse("1002");
-        }
+        return emailService.verifyCode(emailRequest.getUserEmail(), emailRequest.getVerifyNumber());
     }
 
-    /*@PostMapping("/api/signup")
-    @Operation(summary = "회원가입", description = "추후 구현 예정")
-    public StatusResponse signup() {
-        // 구현 예정
-        return new StatusResponse("Signup feature is not implemented yet");
-    }*/
+    @PostMapping("/api/signup")
+    @Operation(summary = "Sign Up", description = "회원가입(userEmail, userPassword, userMajor, userGrade, userGraduateYear, userNickname)")
+    public StatusResponse signup(@RequestBody SignUpRequest signUpRequest) {
+        return signUpService.signUp(signUpRequest);
+    }
 }
