@@ -8,8 +8,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 @EnableScheduling
-//@OpenAPIDefinition(servers = {@Server(url = "http://localhost:8080/", description = "UO HACK Server")})
-@OpenAPIDefinition(servers = {@Server(url = "https://ducktimes.store/", description = "UO HACK Server")})
+@OpenAPIDefinition(servers = {@Server(url = "http://localhost:8080/", description = "UO HACK Server")})
+//@OpenAPIDefinition(servers = {@Server(url = "https://ducktimes.store/", description = "UO HACK Server")})
 @SpringBootApplication
 public class UOApplication {
 
@@ -18,4 +18,3 @@ public class UOApplication {
 		System.out.println("Application started successfully!");
 	}
 }
-

@@ -1,65 +1,38 @@
-package com.example.demo.models;
+package com.example.demo.DTO.ToServer;
 
-import jakarta.persistence.*;
-import java.io.Serializable;
 import java.sql.Time;
-import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "class")
-@IdClass(Course.CourseId.class)  // 복합 키 설정
-public class Course {
+public class CourseAddRequest {
+    private String userEmail;
+    private String jwt;
 
-    @Id
-    @Column(name = "class_crn", nullable = false)  // class_crn을 복합 키의 일부로 사용
     private String classCrn;
 
-    @Id
-    @Column(name = "class_user_email", length = 128, nullable = false)  // user_email을 복합 키의 일부로 사용
-    private String userEmail;
-
-    @Column(name = "class_day", length = 50)
     private String classDay;
 
-    @Column(name = "class_start")
     private Time classStart;
 
-    @Column(name = "class_end")
     private Time classEnd;
 
-    @Column(name = "class_name", length = 128)
     private String className;
 
-    @Column(name = "class_location", length = 128)
     private String classLocation;
 
+    private String classLocationClassroom;
 
-    @Column(name = "class_memo", length = 512)
     private String classMemo;
 
-    // 복합 키 클래스
-    public static class CourseId implements Serializable {
-        private String classCrn;
-        private String userEmail;
-
-        // 기본 생성자
-        public CourseId() {}
-
-        // 생성자
-        public CourseId(String classCrn, String userEmail) {
-            this.classCrn = classCrn;
-            this.userEmail = userEmail;
-        }
-    }
-
-    // Getters and Setters
-
-    public String getClassCrn() {
-        return classCrn;
-    }
-
-    public void setClassCrn(String classCrn) {
+    public CourseAddRequest(String userEmail, String jwt, String classCrn, String classDay, Time classStart, Time classEnd, String className, String classLocation, String classLocationClassroom, String classMemo) {
+        this.userEmail = userEmail;
+        this.jwt = jwt;
         this.classCrn = classCrn;
+        this.classDay = classDay;
+        this.classStart = classStart;
+        this.classEnd = classEnd;
+        this.className = className;
+        this.classLocation = classLocation;
+        this.classLocationClassroom = classLocationClassroom;
+        this.classMemo = classMemo;
     }
 
     public String getUserEmail() {
@@ -68,6 +41,22 @@ public class Course {
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
+    }
+
+    public String getJwt() {
+        return jwt;
+    }
+
+    public void setJwt(String jwt) {
+        this.jwt = jwt;
+    }
+
+    public String getClassCrn() {
+        return classCrn;
+    }
+
+    public void setClassCrn(String classCrn) {
+        this.classCrn = classCrn;
     }
 
     public String getClassDay() {
@@ -110,6 +99,13 @@ public class Course {
         this.classLocation = classLocation;
     }
 
+    public String getClassLocationClassroom() {
+        return classLocationClassroom;
+    }
+
+    public void setClassLocationClassroom(String classLocationClassroom) {
+        this.classLocationClassroom = classLocationClassroom;
+    }
 
     public String getClassMemo() {
         return classMemo;
