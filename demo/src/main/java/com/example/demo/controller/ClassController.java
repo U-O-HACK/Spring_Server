@@ -5,6 +5,7 @@ import com.example.demo.DTO.ToClient.StatusResponse;
 import com.example.demo.DTO.ToServer.CourseAddRequest;
 import com.example.demo.DTO.ToServer.CourseDeleteRequest;
 import com.example.demo.DTO.ToServer.CourseViewRequest;
+import com.example.demo.DTO.ToServer.CourseViewWithMajorRequest;
 import com.example.demo.models.Schedule;
 import com.example.demo.service.ScheduleService;
 import com.example.demo.service.CourseService;
@@ -52,5 +53,11 @@ public class ClassController {
     @Operation(summary = "Get all courses by email", description = "사용자의 이메일로 모든 수업을 가져옴(jwt, email)")
     public List<CourseViewResponse> getCoursesByEmail(@RequestBody CourseViewRequest request) {
         return courseService.getCoursesByEmail(request.getUserEmail(), request.getJwt());
+    }
+    // 특정 전공을 가진 랜덤 사용자로부터 모든 수업 가져오기
+    @PostMapping("/api/course/by-major")
+    @Operation(summary = "Get all courses by random user major", description = "랜덤 사용자의 전공으로 모든 수업을 가져옴(userMajor, jwt)")
+    public List<CourseViewResponse> getCoursesByRandomUserMajor(@RequestBody CourseViewWithMajorRequest request) {
+        return courseService.getCoursesByRandomUserMajor(request.getUserMajor(), request.getJwt());
     }
 }

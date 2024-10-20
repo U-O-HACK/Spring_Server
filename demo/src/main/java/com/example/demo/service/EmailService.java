@@ -73,7 +73,7 @@ public class EmailService {
         } catch (MessagingException e) {
             return new StatusResponse("1001");  // 이메일 전송 실패 시 1001 반환
         } catch (Exception e) {
-            return new StatusResponse("1001");  // 기타 예외 발생 시 1001 반환
+            return new StatusResponse("1002");  // 기타 예외 발생 시 1002 반환
         }
     }
 
@@ -88,10 +88,10 @@ public class EmailService {
                 verificationCodes.remove(email);  // 인증 성공 시 제거
                 return new StatusResponse("200");  // 성공 시 200 반환
             } else {
-                return new StatusResponse("1002");  // 인증 실패 시 1002 반환
+                return new StatusResponse("1003");  // 인증 실패 시 1003 반환
             }
         } catch (Exception e) {
-            return new StatusResponse("1002");  // 예외 발생 시 1002 반환
+            return new StatusResponse("1004");  // 예외 발생 시 1004 반환
         }
     }
 }

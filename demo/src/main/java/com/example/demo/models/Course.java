@@ -3,7 +3,6 @@ package com.example.demo.models;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.sql.Time;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "class")
@@ -33,9 +32,14 @@ public class Course {
     @Column(name = "class_location", length = 128)
     private String classLocation;
 
-
     @Column(name = "class_memo", length = 512)
     private String classMemo;
+
+    @Column(name = "class_user_major", length = 128)  // 사용자 전공 추가
+    private String classUserMajor;
+
+    @Column(name = "class_major", length = 128)  // 수업 전공 추가
+    private String classMajor;
 
     // 복합 키 클래스
     public static class CourseId implements Serializable {
@@ -110,12 +114,27 @@ public class Course {
         this.classLocation = classLocation;
     }
 
-
     public String getClassMemo() {
         return classMemo;
     }
 
     public void setClassMemo(String classMemo) {
         this.classMemo = classMemo;
+    }
+
+    public String getClassUserMajor() {
+        return classUserMajor;
+    }
+
+    public void setClassUserMajor(String classUserMajor) {
+        this.classUserMajor = classUserMajor;
+    }
+
+    public String getClassMajor() {
+        return classMajor;
+    }
+
+    public void setClassMajor(String classMajor) {
+        this.classMajor = classMajor;
     }
 }

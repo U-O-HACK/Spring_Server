@@ -21,8 +21,10 @@ public class CourseAddRequest {
     private String classLocationClassroom;
 
     private String classMemo;
+    private String classUserMajor;
+    private String classMajor;
 
-    public CourseAddRequest(String userEmail, String jwt, String classCrn, String classDay, Time classStart, Time classEnd, String className, String classLocation, String classLocationClassroom, String classMemo) {
+    public CourseAddRequest(String userEmail, String jwt, String classCrn, String classDay, Time classStart, Time classEnd, String className, String classLocation, String classLocationClassroom, String classMemo, String classUserMajor, String classMajor) {
         this.userEmail = userEmail;
         this.jwt = jwt;
         this.classCrn = classCrn;
@@ -33,6 +35,8 @@ public class CourseAddRequest {
         this.classLocation = classLocation;
         this.classLocationClassroom = classLocationClassroom;
         this.classMemo = classMemo;
+        this.classUserMajor = classUserMajor;
+        this.classMajor = classMajor;
     }
 
     public String getUserEmail() {
@@ -113,5 +117,21 @@ public class CourseAddRequest {
 
     public void setClassMemo(String classMemo) {
         this.classMemo = classMemo;
+    }
+
+    public String getClassUserMajor() {
+        return classUserMajor;
+    }
+
+    public void setClassUserMajor(String classUserMajor) {
+        this.classUserMajor = classUserMajor;
+    }
+
+    public String getClassMajor() {
+        return classMajor;
+    }
+
+    public void setClassMajor(String classMajor) {
+        this.classMajor = classMajor;
     }
 }
