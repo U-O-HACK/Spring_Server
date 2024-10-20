@@ -113,7 +113,7 @@ public class CourseService {
         }
     }
     // 랜덤 전공에 따른 수업 조회
-    public List<CourseViewResponse> getCoursesByRandomUserMajor(String userMajor, String jwt) {
+    public List<CourseViewResponse> getCoursesByRandomUserMajor(String userMajor, String jwt    ) {
         // JWT 검증
         if (!JwtUtil.validateToken(jwt)) {
             return List.of(new CourseViewResponse(
