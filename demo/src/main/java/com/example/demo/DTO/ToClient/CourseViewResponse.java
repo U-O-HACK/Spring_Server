@@ -13,10 +13,11 @@ public class CourseViewResponse {
     private Time classEnd;
     private String className;
     private String classLocation;
-
     private String classMemo;
+    private String classMajor;
+    private String classUserMajor;
 
-    public CourseViewResponse(String status, String classCrn, String classDay, Time classStart, Time classEnd, String className, String classLocation, String classMemo) {
+    public CourseViewResponse(String status, String classCrn, String classDay, Time classStart, Time classEnd, String className, String classLocation, String classMemo, String classMajor, String classUserMajor) {
         this.status = status;
         this.classCrn = classCrn;
         this.classDay = classDay;
@@ -25,6 +26,8 @@ public class CourseViewResponse {
         this.className = className;
         this.classLocation = classLocation;
         this.classMemo = classMemo;
+        this.classMajor = classMajor;
+        this.classUserMajor = classUserMajor;
     }
 
     public String getStatus() {
@@ -89,5 +92,21 @@ public class CourseViewResponse {
 
     public void setClassMemo(String classMemo) {
         this.classMemo = classMemo;
+    }
+
+    public String getClassUserMajor() {
+        return classUserMajor;
+    }
+
+    public void setClassUserMajor(String classUserMajor) {
+        this.classUserMajor = classUserMajor;
+    }
+
+    public String getClassMajor() {
+        return classMajor;
+    }
+
+    public void setClassMajor(String classMajor) {
+        this.classMajor = classMajor;
     }
 }

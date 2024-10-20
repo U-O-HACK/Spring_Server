@@ -11,4 +11,5 @@ public interface CourseRepository extends JpaRepository<Course, String> {
 
     // 이메일과 CRN으로 수업을 조회하는 메서드 (복합 키 기반)
     Optional<Course> findByUserEmailAndClassCrn(String userEmail, String classCrn);
+
 }

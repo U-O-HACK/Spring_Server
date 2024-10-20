@@ -7,11 +7,14 @@ import com.example.demo.DTO.ToServer.CourseDeleteRequest;
 import com.example.demo.models.Course;
 import com.example.demo.repository.CourseRepository;
 import com.example.demo.config.JwtUtil;
+import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,6 +22,8 @@ public class CourseService {
 
     @Autowired
     private CourseRepository courseRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     // 새 수업 추가하기 (JWT 검증 포함)
     public StatusResponse addCourse(CourseAddRequest request) {
@@ -75,8 +80,8 @@ public class CourseService {
         if (!JwtUtil.validateToken(jwt)) {
             // JWT가 유효하지 않을 경우
             return List.of(new CourseViewResponse(
-                    "1401",  // 실패 상태
-                    null, null, null, null, null, null, null
+                    "-999",  // 실패 상태
+                    null, null, null, null, null, null, null,null,null
             ));
         }
 
@@ -93,14 +98,66 @@ public class CourseService {
                             course.getClassEnd(),
                             course.getClassName(),
                             course.getClassLocation(),
-                            course.getClassMemo()
+                            course.getClassMemo(),
+                            course.getClassMajor(),
+                            course.getClassUserMajor()
                     ))
                     .collect(Collectors.toList());
         } else {
             // 수업이 없으면 status를 1501로 하고 나머지는 null로 반환
             return List.of(new CourseViewResponse(
                     "1501",  // 실패 상태
-                    null, null, null, null, null, null, null
+                    null, null, null, null, null, null, null,null,null
+            ));
+        }
+    }
+    // 랜덤 전공에 따른 수업 조회
+    public List<CourseViewResponse> getCoursesByRandomUserMajor(String userMajor, String jwt) {
+        // JWT 검증
+        if (!JwtUtil.validateToken(jwt)) {
+            return List.of(new CourseViewResponse(
+                    "-999",  // 실패 상태
+                    null, null, null, null, null, null, null, null, null
+            ));
+        }
+
+        // 해당 전공을 가진 사용자 목록 조회
+        List<String> userEmails = userRepository.findByUserMajor(userMajor); // 전공에 따른 사용자 이메일 목록 조회
+
+        if (userEmails.isEmpty()) {
+            return List.of(new CourseViewResponse(
+                    "1501",  // 실패 상태 (전공을 가진 사용자가 없음)
+                    null, null, null, null, null, null, null, null, null
+            ));
+        }
+
+        // 랜덤으로 사용자 이메일 선택
+        Random rand = new Random();
+        String randomUserEmail = userEmails.get(rand.nextInt(userEmails.size()));
+
+        // 랜덤으로 선택된 사용자의 모든 수업 조회
+        List<Course> courses = courseRepository.findByUserEmail(randomUserEmail);
+
+        // 수업 정보를 CourseViewResponse로 변환하여 반환
+        if (!courses.isEmpty()) {
+            return courses.stream()
+                    .map(course -> new CourseViewResponse(
+                            "200",  // 성공 상태
+                            course.getClassCrn(),
+                            course.getClassDay(),
+                            course.getClassStart(),
+                            course.getClassEnd(),
+                            course.getClassName(),
+                            course.getClassLocation(),
+                            course.getClassMemo(),
+                            course.getClassMajor(), // 수업 전공 추가
+                            course.getClassUserMajor() // 사용자 전공 추가
+                    ))
+                    .collect(Collectors.toList());
+        } else {
+            return List.of(new CourseViewResponse(
+                    "1501",  // 실패 상태 (수업이 없음)
+                    null, null, null, null, null, null, null, null, null
             ));
         }
     }
