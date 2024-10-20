@@ -1,33 +1,38 @@
-package com.example.demo.models;
+package com.example.demo.DTO.ToClient;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
-@Entity
-@Table(name = "board")
-public class Board {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // 자동 증가 설정
-    @Column(name = "board_idx", nullable = false)  // AI 설정
-    private int boardIdx;  // 고유 idx (Primary Key)
-
-    @Column(name = "board_category", nullable = false)
+public class BoardViewResponse {
+    private String status;
+    private int boardIdx;  // 게시글 고유 idx
     private int boardCategory;  // 게시판 카테고리
-
-    @Column(name = "board_title", length = 128, nullable = false)
     private String boardTitle;  // 게시글 제목
-
-    @Column(name = "board_content", length = 1024, nullable = false)
     private String boardContent;  // 게시글 내용
-
-    @Column(name = "board_write_time", nullable = false)
     private LocalDateTime boardWriteTime;  // 게시글 작성 시간
+    private List<CommentViewResponse> comments; // 댓글 목록
 
-    @Column(name = "board_email", length = 128, nullable = false)
-    private String boardEmail;  // 게시글 작성 유저
+    public BoardViewResponse(String status, int boardIdx, int boardCategory, String boardTitle, String boardContent, LocalDateTime boardWriteTime, List<CommentViewResponse> comments) {
+        this.status = status;
+        this.boardIdx = boardIdx;
+        this.boardCategory = boardCategory;
+        this.boardTitle = boardTitle;
+        this.boardContent = boardContent;
+        this.boardWriteTime = boardWriteTime;
+        this.comments = comments;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     // Getters and Setters
+
+
     public int getBoardIdx() {
         return boardIdx;
     }
@@ -68,11 +73,11 @@ public class Board {
         this.boardWriteTime = boardWriteTime;
     }
 
-    public String getBoardEmail() {
-        return boardEmail;
+    public List<CommentViewResponse> getComments() {
+        return comments;
     }
 
-    public void setBoardEmail(String boardEmail) {
-        this.boardEmail = boardEmail;
+    public void setComments(List<CommentViewResponse> comments) {
+        this.comments = comments;
     }
 }

@@ -1,28 +1,19 @@
-package com.example.demo.models;
+package com.example.demo.DTO.ToClient;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "comment")
-public class Comment {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // 자동 증가 설정
-    @Column(name = "comment_idx", nullable = false)  // AI 설정
-    private int commentIdx;  // 게시판 댓글 idx
-
-    @Column(name = "comment_board_idx", length = 50, nullable = false)
+public class CommentViewResponse {
+    private int commentIdx;  // 댓글 고유 idx
     private int commentBoardIdx;  // 게시글 고유 idx
-
-    @Column(name = "comment_write_time", nullable = false)
     private LocalDateTime commentWriteTime;  // 댓글 작성 시간
-
-    @Column(name = "comment_content", length = 512, nullable = false)
     private String commentContent;  // 댓글 내용
 
-    @Column(name = "comment_email", length = 128, nullable = false)
-    private String commentEmail;  // 댓글 작성 유저
+    public CommentViewResponse(int commentIdx, int commentBoardIdx, LocalDateTime commentWriteTime, String commentContent) {
+        this.commentIdx = commentIdx;
+        this.commentBoardIdx = commentBoardIdx;
+        this.commentWriteTime = commentWriteTime;
+        this.commentContent = commentContent;
+    }
 
     // Getters and Setters
     public int getCommentIdx() {
@@ -57,11 +48,4 @@ public class Comment {
         this.commentContent = commentContent;
     }
 
-    public String getCommentEmail() {
-        return commentEmail;
-    }
-
-    public void setCommentEmail(String commentEmail) {
-        this.commentEmail = commentEmail;
-    }
 }
