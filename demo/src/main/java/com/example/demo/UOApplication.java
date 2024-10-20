@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableScheduling
 //@OpenAPIDefinition(servers = {@Server(url = "http://localhost:8080/", description = "UO HACK Server")})
-@OpenAPIDefinition(servers = {@Server(url = "https://ducktimes.store/", description = "UO HACK Server")})
+@OpenAPIDefinition(servers = {@Server(url = "https://ducktimes.store/", description = "UO HACK Server1")})
 @SpringBootApplication
 public class UOApplication {
 
