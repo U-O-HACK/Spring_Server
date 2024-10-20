@@ -5,6 +5,7 @@ import com.example.demo.DTO.ToClient.StatusResponse;
 import com.example.demo.DTO.ToServer.CourseAddRequest;
 import com.example.demo.DTO.ToServer.CourseDeleteRequest;
 import com.example.demo.models.Course;
+import com.example.demo.models.User;
 import com.example.demo.repository.CourseRepository;
 import com.example.demo.config.JwtUtil;
 import com.example.demo.repository.UserRepository;
@@ -122,11 +123,17 @@ public class CourseService {
         }
 
         // 해당 전공을 가진 사용자 목록 조회
-        List<String> userEmails = userRepository.findByUserMajor(userMajor); // 전공에 따른 사용자 이메일 목록 조회
+        List<User> users = userRepository.findByUserMajor(userMajor);
+
+        // 사용자 목록에서 이메일만 추출
+        List<String> userEmails = users.stream()
+                .map(User::getUserEmail)
+                .distinct() // 중복 제거
+                .collect(Collectors.toList());
 
         if (userEmails.isEmpty()) {
             return List.of(new CourseViewResponse(
-                    "1501",  // 실패 상태 (전공을 가진 사용자가 없음)
+                    "1502",  // 실패 상태 (전공을 가진 사용자가 없음)
                     null, null, null, null, null, null, null, null, null
             ));
         }
