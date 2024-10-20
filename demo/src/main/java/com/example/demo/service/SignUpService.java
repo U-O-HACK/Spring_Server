@@ -21,7 +21,7 @@ public class SignUpService {
         try {
             // 이메일 중복 체크
             if (userRepository.findByUserEmail(signUpRequest.getUserEmail()).isPresent()) {
-                return new StatusResponse("1201"); // 이미 존재하는 이메일
+                return new StatusResponse("1301"); // 이미 존재하는 이메일
             }
 
             // 비밀번호 암호화
@@ -41,7 +41,7 @@ public class SignUpService {
 
             return new StatusResponse("200"); // 회원가입 성공
         } catch (Exception e) {
-            return new StatusResponse("1202"); // 회원가입 중 오류 발생
+            return new StatusResponse("1302"); // 회원가입 중 오류 발생
         }
     }
 }

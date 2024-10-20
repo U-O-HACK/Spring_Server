@@ -34,7 +34,7 @@ public class LoginService {
                 return new LoginResponse("1101", null); // 비밀번호가 일치하지 않음
             }
         } else {
-            return new LoginResponse("1201", null); // 사용자가 존재하지 않음
+            return new LoginResponse("1102", null); // 사용자가 존재하지 않음
         }
     }
 }

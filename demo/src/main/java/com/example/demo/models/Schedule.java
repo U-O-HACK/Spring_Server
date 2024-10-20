@@ -1,7 +1,7 @@
 package com.example.demo.models;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "course")
@@ -9,7 +9,7 @@ public class Schedule {
 
     @Id
     @Column(name = "course_crn", nullable = false)
-    private int courseCrn;  // 고유 CRN (Primary Key)
+    private String courseCrn;  // 고유 CRN (Primary Key)
 
     @Column(name = "course_name", length = 128, nullable = false)
     private String courseName;  // 수업 이름
@@ -27,10 +27,10 @@ public class Schedule {
     private String courseDay;  // 요일 (nullable)
 
     @Column(name = "course_start_time")
-    private LocalDateTime courseStartTime;  // 시작 시간 (nullable)
+    private LocalTime courseStartTime;  // 시작 시간 (nullable)
 
     @Column(name = "course_end_time")
-    private LocalDateTime courseEndTime;  // 종료 시간 (nullable)
+    private LocalTime courseEndTime;  // 종료 시간 (nullable)
 
     @Column(name = "course_professor", length = 128)
     private String courseProfessor;  // 교수 (nullable)
@@ -38,12 +38,11 @@ public class Schedule {
     @Column(name = "course_location", length = 128)
     private String courseLocation;  // 수업 장소 (nullable)
 
-    // Getters and Setters
-    public int getCourseCrn() {
+    public String getCourseCrn() {
         return courseCrn;
     }
 
-    public void setCourseCrn(int courseCrn) {
+    public void setCourseCrn(String courseCrn) {
         this.courseCrn = courseCrn;
     }
 
@@ -87,19 +86,19 @@ public class Schedule {
         this.courseDay = courseDay;
     }
 
-    public LocalDateTime getCourseStartTime() {
+    public LocalTime getCourseStartTime() {
         return courseStartTime;
     }
 
-    public void setCourseStartTime(LocalDateTime courseStartTime) {
+    public void setCourseStartTime(LocalTime courseStartTime) {
         this.courseStartTime = courseStartTime;
     }
 
-    public LocalDateTime getCourseEndTime() {
+    public LocalTime getCourseEndTime() {
         return courseEndTime;
     }
 
-    public void setCourseEndTime(LocalDateTime courseEndTime) {
+    public void setCourseEndTime(LocalTime courseEndTime) {
         this.courseEndTime = courseEndTime;
     }
 

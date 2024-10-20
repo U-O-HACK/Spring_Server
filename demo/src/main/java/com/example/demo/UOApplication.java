@@ -18,4 +18,3 @@ public class UOApplication {
 		System.out.println("Application started successfully!");
 	}
 }
-
