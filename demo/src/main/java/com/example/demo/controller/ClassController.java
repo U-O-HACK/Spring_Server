@@ -28,9 +28,9 @@ public class ClassController {
 
     // 기존 일정(Schedule) 가져오기
     @PostMapping("/api/schedules/all")
-    @Operation(summary = "Get All Schedules", description = "모든 수업 스케줄을 가져옴(파라미터 없음)")
-    public List<Schedule> getAllSchedules() {
-        return scheduleService.getAllSchedules();  // 서비스에서 모든 Schedule 정보를 가져와 반환
+    @Operation(summary = "Get All Schedules", description = "모든 수업 스케줄을 가져옴(userMajor)")
+    public List<Schedule> getAllSchedules(@RequestBody CourseViewWithMajorRequest request) {
+        return scheduleService.getSchedulesByMajor(request);  // 서비스에서 모든 Schedule 정보를 가져와 반환
     }
 
     // 새 수업(Course) 추가하기

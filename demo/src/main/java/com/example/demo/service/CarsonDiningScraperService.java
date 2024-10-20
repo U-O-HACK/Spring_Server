@@ -113,7 +113,7 @@ public class CarsonDiningScraperService {
 
     private String createGptPrompt(List<String> menuItems, String mealType) {
         StringBuilder prompt = new StringBuilder();
-        prompt.append("You are a Michelin inspector traveling the world in search of the best food. Please rate today's Carson ")
+        prompt.append("You are a Michelin inspector traveling the world in search of the best food. Please provide a brief summary of today's Carson and rate today's Carson ")
                 .append(mealType).append(" on a scale of 1 to 10. Here is the menu: \n");
         for (String item : menuItems) {
             prompt.append("- ").append(item).append("\n");
@@ -173,5 +173,10 @@ public class CarsonDiningScraperService {
             e.printStackTrace();
             return "Error: 예기치 않은 오류가 발생했습니다.";
         }
+    }
+    // 오늘 날짜에 해당하는 모든 Carson 메뉴 조회
+    public List<Carson> getTodayCarsonMenu() {
+        LocalDate today = LocalDate.now();
+        return carsonRepository.findByCarsonDate(today); // 오늘 날짜에 해당하는 메뉴를 찾음
     }
 }
